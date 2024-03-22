@@ -1,0 +1,12 @@
+torch
+torchvision
+torchaudio
+flax
+# jax
+tensorflow[and-cuda]
+# jraph
+matplotlib
+pytorch-lightning
+scikit-learn
+pandas
+tensorboard
