@@ -5,11 +5,10 @@ import dataclasses
 import networkx as nx
 import numpy as np
 
-import shelve
 import bigsmiles_gen
 
 from util import get_smiles, SEED
-
+import helper
 
 def make_graph_from_smiles(smi):
     big_mol = bigsmiles_gen.Molecule(smi)
@@ -66,11 +65,12 @@ def prepare_sets(data_size:int, competition_size:int, seed:int, max_node_size:in
 
     return (data_smi, data_graphs), (competition_smi, competition_graphs)
 
+def write_data(all_smi, all_graphs, name):
+    dictionary = {}
+    for smi, graph in zip(all_smi, all_graphs):
+        dictionary[smi] = graph
 
-def write_shelf(all_smi, all_graphs, name):
-    with shelve.open(f"{name}.shelf", "n") as shelf:
-        for smi, graph in zip(all_smi, all_graphs):
-            shelf[smi] = graph
+    helper.write_data_to_json_file(dictionary, f"{name}.json")
 
 def main(argv):
     if len(argv) != 0:
@@ -78,8 +78,8 @@ def main(argv):
 
     (data_smi, data_graphs), (competition_smi, competition_graphs) = prepare_sets(2000, 100, SEED)
 
-    write_shelf(data_smi, data_graphs, "data")
-    write_shelf(competition_smi, competition_graphs, "competition")
+    write_data(data_smi, data_graphs, "data")
+    write_data(competition_smi, competition_graphs, "competition")
 
 
 if __name__ == "__main__":

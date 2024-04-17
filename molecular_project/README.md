@@ -1,8 +1,9 @@
 # Explanation of the Dataset and Challenge
 
-This sub-directory contains data and some initial code to help you get started. We utilize the Python `shelve` module to store the training data. You can access all the data for this challenge within the `data.shelf` Python shelve file.
+This sub-directory contains data and some initial code to help you get started. We utilize the Python `json` module to store the training data. You can access all the data for this challenge within the `data.json`.
+We have the python module `helper.py` that helps to read and write dictionaries of graphs.
 
-The shelve is structured in key-value pairs, where the key is the SMILES string of the molecule used for training. The value is a networkx graph, which includes attributes on nodes and edges that serve as inputs and outputs for your models. Please refer to and execute `explain_graph_data.py` for a more detailed understanding of the data.
+The JSON is structured in key-value pairs, where the key is the SMILES string of the molecule used for training. The value is a networkx graph, which includes attributes on nodes and edges that serve as inputs and outputs for your models. Please refer to and execute `explain_graph_data.py` for a more detailed understanding of the data.
 
 ## Extra Information
 

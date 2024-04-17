@@ -1,14 +1,6 @@
-import shelve
 import networkx as nx
 import numpy as np
-
-def shelf_to_dict(shelf_name:str):
-    resulting_dict = {}
-    with shelve.open(shelf_name, "r") as data:
-        for smi in data:
-            resulting_dict[smi] = data[smi]
-    return resulting_dict
-
+import helper
 
 def compare_property(property_name:str, result_dict, ref_dict, max_node_size:int=100):
     def get_graph_property_data(property_name, graph):
@@ -42,11 +34,10 @@ def compare_property(property_name:str, result_dict, ref_dict, max_node_size:int
     print("\n")
 
 
-
 def main():
-    ref_dict = shelf_to_dict("competition.shelf")
+    ref_dict = helper.load_data_from_file("competition.json")
     # For demonstration only. Use your real results here!
-    result_dict = shelf_to_dict("competition.shelf")
+    result_dict = helper.load_data_from_file("competition.json")
 
     compare_property("epsilon", result_dict, ref_dict)
     compare_property("mass", result_dict, ref_dict)
