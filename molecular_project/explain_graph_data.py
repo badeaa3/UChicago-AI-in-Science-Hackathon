@@ -1,54 +1,53 @@
 import networkx as nx
 import shelve
 
+# Open the shelve database in read-only mode to load training data
+with shelve.open("data.shelf", "r") as train_shelf:
+    print(f"We have {len(train_shelf.keys())} molecular graphs to train with.")
+    print("Please adhere to best practices during training.\n")
 
-with shelve.open("la.shelf") as train_shelf:
-    print(f"We have {len(train_shelf.keys())} molecular graphs to train with\n")
-
+    # Process the first data point for demonstration purposes
     for smiles_string in train_shelf:
-        print("Our first data point is described by this SMILES string: ", smiles_string)
-        print("SMILES is described in detail here https://en.wikipedia.org/wiki/Simplified_molecular-input_line-entry_system\n")
+        print(f"Our first data point is described by this SMILES string: {smiles_string}")
+        print("For more details on SMILES, visit: https://en.wikipedia.org/wiki/Simplified_molecular-input_line-entry_system\n")
 
         graph = train_shelf[smiles_string]
-        print("The training data is the format of networkx graphs: ", graph)
-        print("All graphs are guaranteed to have less then 100 nodes, but there is no absolute limit on the number of edges.\n")
+        print("The training data consists of networkx graphs:", graph)
+        print("All graphs are guaranteed to have fewer than 100 nodes, but there is no strict limit on the number of edges.\n")
 
-        print("Let's take a look on how the nodes are organized.")
+        print("Let's examine the organization of the nodes:")
         for node in graph.nodes(data=True):
-            print(node, "\n")
 
-            print("The first index is just a label for the node {node[0]}.")
-            print("But keep in mind, that there is no meaning to this index,\n"
-                  "your result should be identical if these indeces are permuted.\n"
-                  "Permutation Invariance!\n")
+            print(f"The first index is just a label for the node: {node[0]}.")
+            print("Remember, the index has no inherent meaning;")
+            print("your results should be consistent even if these indices are permuted.")
+            print("Permutation Invariance!\n")
 
-            print("The following attributes are readily available to you, you may use them to featurize your nodes in the Graph for training.\n"
-                  "They are considered input, you do not have to learn them.")
-            print("They do have chemical meaning, you can decide how much of that meaning you use to algorithm.")
+            print("Below are attributes available for node featurization:")
             for attr in ['atomic', 'valence', 'formal_charge', 'aromatic', 'hybridization']:
                 print(attr, node[1][attr])
 
-            print("\n")
-            print("'atomic' is the atomic number, so the index of the periodic table, or the number of protons in the core.")
-            print("This number tells apart the different elements, for example 6 is carbon and 1 is hydrogen.\n")
+            print("\n'atomic' represents the atomic number, or the number of protons in an atom's nucleus.")
+            print("This number differentiates elements, e.g., 6 for carbon and 1 for hydrogen.\n")
 
-            print("The last attribute 'param' is the ouput for this challenge.\n"
-                  " It is provided for the training and testing set only for supervised learning procedures.\n"
-                  "You are not allowed to use them as input ever!\n"
-                  )
-            print("Exception: if you want for example the 'mass' as input feature for your 'epsilon' training, you MUST use the 'mass' value that is the output of your model for predicting 'mass'\n")
-
-            print("The following are simple scalar values, that can be directly predictied:\n")
+            print("Attributes in 'param' are used for supervised learning outputs:")
             for key in ['mass', 'charge', 'sigma', 'epsilon']:
                 print(key, node[1]["param"][key])
 
+            print("\nBond type values are categorical, not scalar.")
+            print('bond_type_name:', "Refers to the text name found in 'ffbonded.itp' for bond force lookup.", node[1]["param"]['bond_type_name'])
+            print('bond_type_id:', "An integer identifier unique to the bond type, usable in training", node[1]["param"]['bond_type_id'])
+            print("Initially, you might focus on classifying atoms into these groups, later evolving to predict bond, angle, and dihedral values directly from the graph structure.\n")
 
-
-
-
-            # We don't want to print all info of all nodes here.
+            # Limit the output to the first node for clarity
             break
 
+        print("Edges in the graphs are also characterized with attributes usable for model predictions.")
+        for edge in graph.edges(data=True):
+            print(f"Edge from node {edge[0]} to {edge[1]} is undirected and characterized by a bond type ID: {edge[2]['bond_type']}.")
+            print("For bond type IDs specification, refer to: https://www.rdkit.org/docs/cppapi/classRDKit_1_1Bond.html#a2c93af0aeb3297ee77b6afdc27b68d6f")
+            # Limit the output to the first edge for demonstration
+            break
 
-        # We don't want to print every data point here.
+        # Stop after processing the first data point to keep the output manageable
         break

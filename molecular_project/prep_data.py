@@ -32,20 +32,20 @@ def make_graph_from_smiles(smi):
 
     return graph
 
-def prepare_sets(train_size:int, test_size:int, competition_size:int, seed:int, max_node_size:int=100):
+def prepare_sets(data_size:int, competition_size:int, seed:int, max_node_size:int=100):
     all_smi = []
     all_graphs = []
     smi_gen = get_smiles()
-    while len(all_smi) < train_size + test_size + competition_size:
+    while len(all_smi) < data_size + competition_size:
         smi = next(smi_gen)
         try:
             graph = make_graph_from_smiles(smi)
         except RuntimeError as exc:
-            print(len(all_smi)/(train_size + test_size + competition_size), exc)
+            print(len(all_smi)/(data_size + competition_size), exc)
         except ValueError as exc:
-            print(len(all_smi)/(train_size + test_size + competition_size), exc)
+            print(len(all_smi)/(data_size + competition_size), exc)
         except bigsmiles_gen.forcefield_helper.FfAssignmentError as exc:
-            print(len(all_smi)/(train_size + test_size + competition_size), exc)
+            print(len(all_smi)/(data_size + competition_size), exc)
         else:
             if len(graph) < max_node_size:
                 all_smi += [smi]
@@ -58,16 +58,13 @@ def prepare_sets(train_size:int, test_size:int, competition_size:int, seed:int, 
     shuffled_smi = [all_smi[i] for i in idx]
     shuffled_graphs = [all_graphs[i] for i in idx]
 
-    train_smi = shuffled_smi[:train_size]
-    train_graphs = shuffled_graphs[:train_size]
+    data_smi = shuffled_smi[:data_size]
+    data_graphs = shuffled_graphs[:data_size]
 
-    test_smi = shuffled_smi[train_size:train_size+test_size]
-    test_graphs = shuffled_graphs[train_size:test_size + train_size]
+    competition_smi = shuffled_smi[data_size:]
+    competition_graphs = shuffled_smi[data_size:]
 
-    competition_smi = shuffled_smi[train_size+test_size:]
-    competition_graphs = shuffled_smi[train_size+test_size:]
-
-    return (train_smi, train_graphs), (test_smi, test_graphs), (competition_smi, competition_graphs)
+    return (data_smi, data_graphs), (competition_smi, competition_graphs)
 
 
 def write_shelf(all_smi, all_graphs, name):
@@ -79,10 +76,9 @@ def main(argv):
     if len(argv) != 0:
         raise RuntimeError("Specify exactly one SMILES string")
 
-    (train_smi, train_graphs), (test_smi, test_graphs), (competition_smi, competition_graphs) = prepare_sets(8000, 2000, 1000, SEED)
+    (data_smi, data_graphs), (competition_smi, competition_graphs) = prepare_sets(2000, 100, SEED)
 
-    write_shelf(train_smi, train_graphs, "train")
-    write_shelf(test_smi, test_graphs, "test")
+    write_shelf(data_smi, data_graphs, "data")
     write_shelf(competition_smi, competition_graphs, "competition")
 
 
