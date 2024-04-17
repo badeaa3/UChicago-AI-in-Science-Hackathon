@@ -139,6 +139,7 @@
         \end{itemize}
       \item we know some values
       \item SMARTS based rules
+      \item Quantum Mechanic simulations
       \item chemical space is vast, we want to interpolate
       \end{itemize}
       \begin{exampleblock}{Your Challenge}
@@ -157,7 +158,99 @@
 
 \begin{frame}
   \frametitle{Details of the Basic Challenge}
+  \begin{columns}
+    \begin{column}{0.48\textwidth}
+      \begin{itemize}
+      \item 2000 molecular graphs
+      \item known input parameters
+      \item supervised learning possible
+        \begin{enumerate}
+        \item predict non-bonded parameters
+        \item predict uncertaintiy in interpolation
+        \end{enumerate}
+      \item you are free to choose your model
+      \item you are free to choose tech stack
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.52\textwidth}
+      \begin{itemize}
+      \item \url{https://github.com/badeaa3/UChicago-AI-in-Science-Hackathon}
+      \item \texttt{molecular/intro/talk.pdf} this slide deck
+      \item \texttt{molecular/README.md} starting point
+      \item \texttt{molecular/explain\_graph\_data.py} explanation of data set
+      \item \texttt{molecular/data.shelf} training data
+      \item molecular graph as \texttt{networkx} graphs
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
 
+
+\begin{frame}
+  \frametitle{How we evaluate you}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+      \item prepare a final presentation
+      \item convince us your solution is best
+      \item include model details and results
+      \item XX minutes to present
+      \item YY minutes for our questions
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+      \item morning last day: we give you additional data
+      \item DO NOT TRAIN with this data
+      \item \texttt{molecular/final\_evaluation.py}
+      \item report output in your presentation
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{Extra Challenges}
+
+\begin{frame}
+  \frametitle{What if you solve the challenge too fast?}
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+      \begin{exampleblock}{Traditional}
+        \begin{itemize}
+        \item predict bond class for atom
+        \item look-up table for parameters
+        \item \texttt{ffbonded.itp}
+        \end{itemize}
+      \end{exampleblock}
+        \begin{exampleblock}{GNN approach}
+          \begin{itemize}
+          \item predict parameters directly
+          \item bonds: edge features
+          \item angles \& dihedrals \alert{?}
+          \end{itemize}
+        \end{exampleblock}
+    \end{column}
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}
+      \item bonds: 2 atoms: 2 parameters
+      \end{itemize}
+      \begin{align}
+        V_b(r_{ij}) = k_{a} (r_{ij} - b_{0})^2 \nonumber
+      \end{align}
+      \begin{itemize}
+      \item angles: 3 atoms: 2 parameters
+      \end{itemize}
+      \begin{align}
+        V_a(\theta) = k_{\theta} (\theta - \theta_0)^2 \quad \theta = \cos^{-1}( \vec{r_{ij}} \cdot \vec{r_{jk}} /(||\vec{r_{ij}}|| ||\vec{r_{jk}}||))\nonumber
+      \end{align}
+      \begin{itemize}
+      \item dihedral: 4 atoms: 8 parameters
+      \end{itemize}
+      \begin{align}
+        V_d(\phi) = \sum_{i=1,2,3,4} V_i/2[1- (-1)^i\cos(i \cdot \phi-\phi_i)]\nonumber
+      \end{align}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \section*{Thank you for your attention!}
@@ -166,8 +259,10 @@
 \subsection*{Questions?}
 
 \begin{frame}
-  \frametitle{Conclusion \& Outlook}
+  % \frametitle{Conclusion \& Outlook}
 
+  \centering
+  \Huge{Happy Hacking!}
 \end{frame}
 \beginbackup
 
