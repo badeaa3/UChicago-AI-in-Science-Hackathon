@@ -62,7 +62,7 @@ def prepare_sets(data_size:int, competition_size:int, seed:int, max_node_size:in
     data_graphs = shuffled_graphs[:data_size]
 
     competition_smi = shuffled_smi[data_size:]
-    competition_graphs = shuffled_smi[data_size:]
+    competition_graphs = shuffled_graphs[data_size:]
 
     return (data_smi, data_graphs), (competition_smi, competition_graphs)
 
