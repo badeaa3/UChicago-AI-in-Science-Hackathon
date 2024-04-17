@@ -62,7 +62,7 @@
     \begin{column}{0.16\textwidth}
       \begin{figure}
         \centering
-        \includegraphics[width=0.5\textwidth]{pmebf}
+        \includegraphics[width=0.75\textwidth]{schmidt_logo}
       \end{figure}
 
     \end{column}
@@ -72,13 +72,13 @@
       \centering
       \begin{figure}
         \centering
-        \includegraphics[width=0.45\textwidth]{image}
+        \includegraphics[width=0.25\textwidth]{image}
       \end{figure}
     \end{column}
     \begin{column}{0.16\textwidth}
       \begin{figure}
         \centering
-        \includegraphics[width=0.5\textwidth]{uchicago}
+        \includegraphics[width=0.75\textwidth]{uchicago}
       \end{figure}
     \end{column}
   \end{columns}
@@ -95,19 +95,69 @@
 \frame{\titlepage\thispagestyle{empty}}
 \addtocounter{framenumber}{-1}
 
+\renewcommand\citationtext{\fullcite{jorgensen1996development}}
 \section*{Introduction}
 \begin{frame}
-  \frametitle{Moelcular Interaction}
+  \frametitle{Moelcular Interaction: Non-Bonded I}
   \begin{columns}
     \begin{column}{0.5\textwidth}
-
+      \begin{itemize}
+      \item Newtons Equation of Motion
+      \end{itemize}
+        \begin{align}
+          m_i \frac{\text{d}^2}{\frac{\text{d}}t^2}\vec{r_i} = \vec{F_i}\nonumber
+        \end{align}
+        \vspace{-0.5\baselineskip}
+        \begin{itemize}
+      \item determine forces $\vec{F}$
+      \item OPLS: functional form for the forcefield
+      \end{itemize}
+      \begin{align}
+        V_\text{nb}(r_{ij}) &= \epsilon_{ij} \left(\frac{\sigma_{ij}}{r_{ij}^{12}} - \frac{\sigma_{ij}}{r_{ij}^6}\right) + \frac{q_iq_j e^2}{4\pi\epsilon_0 r_{ij}}\nonumber\\
+        \epsilon_{ij} &= \sqrt{\epsilon_i \epsilon_j} \quad \sigma_{ij} = \sqrt{\sigma_i \sigma_j}\nonumber
+      \end{align}
+      \vspace{-0.5\baselineskip}
+      \alert{Challenge}: determine $\epsilon_i$, $\sigma_i$, $q_i$, and $m_i$
     \end{column}
     \begin{column}{0.5\textwidth}
       \begin{figure}
-        \includegraphics[width=\textwidth]{image}
+        \includegraphics[width=0.75\textwidth]{image}
       \end{figure}
     \end{column}
   \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Moelcular Interaction: Non-Bonded Interactions II}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+      \item determine $\epsilon_i$, $\sigma_i$, $q_i$, and $m_i$
+                \begin{itemize}
+        \item element (carbon, hydrogen)
+        \item molecular environment
+        \end{itemize}
+      \item we know some values
+      \item SMARTS based rules
+      \item chemical space is vast, we want to interpolate
+      \end{itemize}
+      \begin{exampleblock}{Your Challenge}
+        Use ML to interpolate from known molecules!
+      \end{exampleblock}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{atom_graph}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{Dataset}
+
+\begin{frame}
+  \frametitle{Details of the Basic Challenge}
+
 \end{frame}
 
 \section*{Thank you for your attention!}

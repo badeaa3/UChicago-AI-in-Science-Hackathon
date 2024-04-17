@@ -40,7 +40,7 @@ with shelve.open("data.shelf", "r") as train_shelf:
             print("Initially, you might focus on classifying atoms into these groups, later evolving to predict bond, angle, and dihedral values directly from the graph structure.\n")
 
             # Limit the output to the first node for clarity
-            break
+            # break
 
         print("Edges in the graphs are also characterized with attributes usable for model predictions.")
         for edge in graph.edges(data=True):
