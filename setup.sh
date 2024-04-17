@@ -1,25 +1,26 @@
 #!/bin/bash
 
+# load rcc modules
+module load python/miniforge-24.1.2 # python 3.10
+
 # Define the virtual environment name and the custom index URL
-VENV_NAME="work"
+VENV_NAME="hackathon"
 current_directory=$(pwd)
 
-# Create the virtual environment
-python3 -m venv $VENV_NAME
+# check if directory exists
+if test -d $VENV_NAME; then
+  source $VENV_NAME/bin/activate
+else
 
-# Activate the virtual environment
-source $VENV_NAME/bin/activate
+  # Create the virtual environment
+  python3 -m venv $VENV_NAME
 
-# upgrade pip
-pip install --upgrade pip
+  # Activate the virtual environment
+  source $VENV_NAME/bin/activate
 
-# install the packages
-pip install -r requirements.txt
+  # upgrade pip
+  pip install --upgrade pip
 
-# deactivate venv
-deactivate
-
-# export VENV_NAME to activate environment
-echo "alias work='source ${current_directory}/$VENV_NAME/bin/activate'" >> ~/.bash_profile
-source ~/.bash_profile
-echo "from now on type the following to turn on the virtual environment: work"
+  # install the packages
+  pip install -r requirements.txt
+fi
