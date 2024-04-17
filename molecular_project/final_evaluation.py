@@ -23,9 +23,9 @@ def compare_property(property_name:str, result_dict, ref_dict, max_node_size:int
     for smi in ref_dict:
         if smi not in result_dict:
             miss_counter += 1
-
-        result_data.append(get_graph_property_data(property_name, result_dict[smi]))
-        ref_data.append(get_graph_property_data(property_name, ref_dict[smi]))
+        else:
+            result_data.append(get_graph_property_data(property_name, result_dict[smi]))
+            ref_data.append(get_graph_property_data(property_name, ref_dict[smi]))
     result_data = np.asarray(result_data)
     ref_data = np.asarray(ref_data)
 
@@ -44,9 +44,9 @@ def compare_property(property_name:str, result_dict, ref_dict, max_node_size:int
 
 
 def main():
-    ref_dict = shelf_to_dict("data.shelf")
+    ref_dict = shelf_to_dict("competition.shelf")
     # For demonstration only. Use your real results here!
-    result_dict = shelf_to_dict("data.shelf")
+    result_dict = shelf_to_dict("competition.shelf")
 
     compare_property("epsilon", result_dict, ref_dict)
     compare_property("mass", result_dict, ref_dict)
