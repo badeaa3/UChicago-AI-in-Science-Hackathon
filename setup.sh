@@ -1,25 +1,18 @@
 #!/bin/bash
 
-# Define the virtual environment name and the custom index URL
-VENV_NAME="work"
-current_directory=$(pwd)
+PREFIX=/project/dfreedman/colmt/anaconda/hackathon
 
-# Create the virtual environment
-python3 -m venv $VENV_NAME
+# Make sure that conda is available, this is specific to midway3
+. /software/python-anaconda-2022.05-el8-x86_64/etc/profile.d/conda.sh
 
-# Activate the virtual environment
-source $VENV_NAME/bin/activate
+# Create the conda base environment, I do this with mamba because conda wasn't behaving
+mamba create --prefix=$PREFIX python=3.11
 
-# upgrade pip
-pip install --upgrade pip
+# Activate the new environment
+conda activate $PREFIX
 
-# install the packages
+# Install the packages with pip
 pip install -r requirements.txt
 
-# deactivate venv
-deactivate
+echo "New environment available at $PREFIX"
 
-# export VENV_NAME to activate environment
-echo "alias work='source ${current_directory}/$VENV_NAME/bin/activate'" >> ~/.bash_profile
-source ~/.bash_profile
-echo "from now on type the following to turn on the virtual environment: work"

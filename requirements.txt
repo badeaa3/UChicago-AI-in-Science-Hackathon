@@ -2,9 +2,9 @@ torch
 torchvision
 torchaudio
 flax
-# jax
+jax
 tensorflow[and-cuda]
-# jraph
+jraph
 matplotlib
 pytorch-lightning
 scikit-learn
