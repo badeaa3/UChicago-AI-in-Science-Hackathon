@@ -35,9 +35,9 @@ def compare_property(property_name:str, result_dict, ref_dict, max_node_size:int
 
 
 def main():
-    ref_dict = helper.load_data_from_file("competition.json")
+    ref_dict = helper.load_data_from_file("data.json")
     # For demonstration only. Use your real results here!
-    result_dict = helper.load_data_from_file("competition.json")
+    result_dict = helper.load_data_from_file("data.json")
 
     compare_property("epsilon", result_dict, ref_dict)
     compare_property("mass", result_dict, ref_dict)
