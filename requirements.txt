@@ -10,4 +10,5 @@ pytorch-lightning
 scikit-learn
 pandas
 tensorboard
+jupyterlab
 networkx
