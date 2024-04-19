@@ -1,10 +1,7 @@
 torch==2.1.2
 torchvision
 torchaudio
-flax
-jax
-tensorflow[and-cuda]
-jraph
+torch_geometric
 matplotlib
 pytorch-lightning
 scikit-learn
@@ -12,3 +9,4 @@ pandas
 tensorboard
 jupyterlab
 networkx
+tensorflow[and-cuda]
