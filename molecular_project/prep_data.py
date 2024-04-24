@@ -23,11 +23,17 @@ def make_graph_from_smiles(smi):
                        formal_charge=atom.GetFormalCharge(),
                        aromatic=atom.GetIsAromatic(),
                        hybridization=int(atom.GetHybridization()),
+                       radical_electrons=int(atom.GetNumRadicalElectrons()),
                        param=dataclasses.asdict(ffparam[atomnum]))
     for node in graph.nodes():
         atom = mol.GetAtomWithIdx(node)
         for bond in atom.GetBonds():
-            graph.add_edge(int(bond.GetBeginAtomIdx()), int(bond.GetEndAtomIdx()), bond_type=int(bond.GetBondType()))
+            graph.add_edge(int(bond.GetBeginAtomIdx()), int(bond.GetEndAtomIdx()),
+                           type=int(bond.GetBondType()),
+                           stereo=int(bond.GetStereo()),
+                           aromatic=bond.GetIsAromatic(),
+                           conjugated=bond.GetIsConjugated(),
+                           )
 
     return graph
 
@@ -76,7 +82,7 @@ def main(argv):
     if len(argv) != 0:
         raise RuntimeError("Specify exactly one SMILES string")
 
-    (data_smi, data_graphs), (competition_smi, competition_graphs) = prepare_sets(2000, 100, SEED)
+    (data_smi, data_graphs), (competition_smi, competition_graphs) = prepare_sets(3000, 500, SEED)
 
     write_data(data_smi, data_graphs, "data")
     write_data(competition_smi, competition_graphs, "competition")

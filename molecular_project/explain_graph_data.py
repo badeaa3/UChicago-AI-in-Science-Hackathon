@@ -25,7 +25,7 @@ for smiles_string in train_data:
         print("Permutation Invariance!\n")
 
         print("Below are attributes available for node featurization:")
-        for attr in ['atomic', 'valence', 'formal_charge', 'aromatic', 'hybridization']:
+        for attr in ['atomic', 'valence', 'formal_charge', 'aromatic', 'hybridization', "radical_electrons"]:
             print(attr, node[1][attr])
 
         print("\n'atomic' represents the atomic number, or the number of protons in an atom's nucleus.")
@@ -45,8 +45,10 @@ for smiles_string in train_data:
 
     print("Edges in the graphs are also characterized with attributes usable for model predictions.")
     for edge in graph.edges(data=True):
-        print(f"Edge from node {edge[0]} to {edge[1]} is undirected and characterized by a bond type ID: {edge[2]['bond_type']}.")
-        print("For bond type IDs specification, refer to: https://www.rdkit.org/docs/cppapi/classRDKit_1_1Bond.html#a2c93af0aeb3297ee77b6afdc27b68d6f")
+        print(f"Edge from node {edge[0]} to {edge[1]} is undirected: and has the following properties:")
+        for edge_prop in ['type', 'stereo', 'aromatic', 'conjugated']:
+            print(edge_prop, edge[2][edge_prop])
+        print("For bond specification, refer to: https://www.rdkit.org/docs/cppapi/classRDKit_1_1Bond.html")
         # Limit the output to the first edge for demonstration
         break
 
