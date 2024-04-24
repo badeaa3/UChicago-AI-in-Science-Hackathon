@@ -126,6 +126,7 @@ def main():
     rng = np.random.default_rng(seed=SEED)
     add_data_from_prediction(result_dict, rng)
 
+
     compare_property("epsilon", result_dict, ref_dict)
     compare_property("mass", result_dict, ref_dict)
     compare_property("sigma", result_dict, ref_dict)
