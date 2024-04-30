@@ -18,3 +18,15 @@ The `ffbonded.itp` file specifies bonded parameters for bonds, angles, and dihed
 ## How We Prepared the Data
 
 If you are curious about how we prepared the data, you can look into `prep_data.py`. However, this script will not execute on your system, as we have obscured the specifics of how we obtain and shuffle the SMILES strings to create the training and competition datasets. Therefore, you should not attempt to run this file. The `requirements_prepare.txt` file lists the `pip` requirements exclusively for this script, which are not necessary for solving the challenge.
+
+## Where to Start building your Model
+
+We think that Graph Neural Networks may be an excellent choice to build these models.
+If you are not familiar with Graph Neural Networks or AI for Molecular Science maybe give this [introduction](https://dmol.pub/dl/gnn.html) a read to  get started.
+As a tech stack, you could use:
+ - [Flax](https://github.com/google/flax)/[JAX](https://github.com/google/jax) with [jraph](https://github.com/google-deepmind/jraph) as graph library
+ - [PyTorch](https://github.com/pytorch) with [PyTorch Geometric](https://github.com/pyg-team/pytorch_geometric) for graphs.
+ - [TensorFlow](https://github.com/tensorflow) with the [GNN sub-module](https://github.com/tensorflow/gnn) for graphs.
+
+But these are just suggestions for inspiration. You are free to choose what ever model you like to solve this task.
+We just want to emphasize that graphs are permutation invariant, under permuting nodes and edges, so your result should be invariant under this input transformation.

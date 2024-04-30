@@ -38,7 +38,7 @@ def apply_permutation(graph, permutation):
     return new_graph
 
 
-def write_out_data(data_in):
+def write_out_data(data_in, outname):
     data_out = {}
     for smi in data_in:
         m = hashlib.shake_256()
@@ -46,11 +46,10 @@ def write_out_data(data_in):
         name = m.hexdigest(10)
         graph = remove_param(copy.deepcopy(data_in[smi]))
         data_out[name] = graph
-    write_data_to_json_file(data_out, "validation_masked.json")
+    write_data_to_json_file(data_out, outname, indent=2)
 
-def write_perm_data(data_in):
+def write_perm_data(data_in, smi, num_permuted_graphs, file_name):
     perm_graphs = {}
-    smi=SMI
     graph = data_in[smi]
     half_graph = remove_param(copy.deepcopy(graph))
     rng = np.random.default_rng(seed=SEED)
@@ -64,30 +63,27 @@ def write_perm_data(data_in):
 
         permuted_graph = apply_permutation(half_graph, perm)
         perm_graphs[name] = permuted_graph
-    with open("permutations.json", "w") as json_handle:
+    with open(f"{file_name}.json", "w") as json_handle:
         json.dump(permutation_dict, json_handle)
-    write_data_to_json_file(perm_graphs, "permutation_masked.json")
+    write_data_to_json_file(perm_graphs, f"{file_name}_masked.json", indent=2)
 
 def main():
     data_in = load_data_from_file("competition.json")
-    write_out_data(data_in)
-    write_perm_data(data_in)
+    write_out_data(data_in, "validation_masked.json")
+    write_perm_data(data_in, SMI, 50, "permutation")
 
+    data_in_tmp = load_data_from_file("data.json")
+    # To save space we only us a couple graphs as example
+    data_in = {}
+    example_num = 10
+    for i, smi in enumerate(data_in_tmp):
+        data_in[smi] = data_in_tmp[smi]
+        if i> example_num:
+            break
 
-    # inv_perm = get_inv_permutation(perm)
-    # new_graph = apply_permutation(graph, perm)
-    # new_graph2 = apply_permutation(new_graph, inv_perm)
-
-    # found_diff = False
-    # for node in graph.nodes(data=True):
-    #     assert node[1] == new_graph.nodes(data=True)[perm[node[0]]]
-    #     assert node[1] == new_graph2.nodes(data=True)[node[0]]
-    #     if node[1] != new_graph.nodes(data=True)[node[0]]:
-    #         found_diff = True
-    # assert found_diff
-
-    # for edge in graph.edges(data=True):
-    #     print(edge[2])
+    write_out_data(data_in, "validation_example.json")
+    write_perm_data(data_in, smi, 5, "permutation_example")
+    print(smi)
 
 
 

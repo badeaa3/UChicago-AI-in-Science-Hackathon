@@ -114,16 +114,15 @@ def compare_permutation(property_name:str, result_dict, ref_graph, permutation_d
 
 
 def main():
-    from util import SEED, SMI
-    # You won't necessarily have this data available
-    ref_dict = helper.load_data_from_file("competition.json")
+    # You won't necessarily have this data available, here we use the training data to show you
+    ref_dict = helper.load_data_from_file("data.json")
 
 
-    result_dict = helper.load_data_from_file("validation_masked.json")
+    result_dict = helper.load_data_from_file("validation_example.json")
     # In a real case, we would not add random results.
     # Instead you would fill it with your results and then write it to disk to hand it to us.
     # This is for mock up testing only.
-    rng = np.random.default_rng(seed=SEED)
+    rng = np.random.default_rng()
     add_data_from_prediction(result_dict, rng)
 
 
@@ -134,10 +133,12 @@ def main():
 
 
     print("Permutation check")
-    ref_graph = ref_dict[SMI]
-    result_perm_dict = helper.load_data_from_file("permutation_masked.json")
-    with open("permutations.json", "r") as json_handle:
+    # The real SMILES string we will test with is not in your training data
+    ref_graph = ref_dict["O=C(c1ccc2c(c1)OCO2)c1ccc2n1CCC2C(=O)O"]
+    result_perm_dict = helper.load_data_from_file("permutation_example_masked.json")
+    with open("permutation_example.json", "r") as json_handle:
         permutation_dict = json.load(json_handle)
+    # This step is again replaced with your model data
     add_data_from_prediction(result_perm_dict, rng)
 
     compare_permutation("epsilon", result_perm_dict, ref_graph, permutation_dict)

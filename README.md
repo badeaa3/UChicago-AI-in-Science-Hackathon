@@ -74,3 +74,8 @@ Results will be available in `slurm-<job_id>.out`.
 ## Best Practices for Resource Sharing
 
 To ensure fair resource sharing, minimize the use of interactive jobs and Jupyter Notebooks. Thank you for your cooperation.
+
+## Useful Links
+
+ - Teams & Mentor [Spreadsheat](https://docs.google.com/spreadsheets/d/1QbVzLIgxW0LiaMQ5dpUCMQXtT_bGgAvIDExyWpC9UM4/edit?usp=sharing)
+ - Invite to [Slack](https://join.slack.com/t/aisciencehack-qop3836/shared_invite/zt-2hx2lpvtf-coICNHwTFARxgFDYfwnvRw)

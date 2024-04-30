@@ -155,13 +155,13 @@
 \end{frame}
 
 \section{Dataset}
-
+\renewcommand\citationtext{\url{https://github.com/badeaa3/UChicago-AI-in-Science-Hackathon}}
 \begin{frame}
   \frametitle{Details of the Basic Challenge}
   \begin{columns}
     \begin{column}{0.48\textwidth}
       \begin{itemize}
-      \item 2000 molecular graphs
+      \item 3000 molecular graphs
       \item known input parameters
       \item supervised learning possible
         \begin{enumerate}
@@ -170,6 +170,7 @@
         \end{enumerate}
       \item you are free to choose your model
       \item you are free to choose tech stack
+      \item make results permutation invariant
       \end{itemize}
     \end{column}
     \begin{column}{0.52\textwidth}
@@ -185,23 +186,66 @@
   \end{columns}
 \end{frame}
 
+\renewcommand\citationtext{\url{https://dmol.pub/dl/gnn.html}}
 
 \begin{frame}
-  \frametitle{How we evaluate you}
+  \frametitle{How to get Started?}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{exampleblock}{1. Understand the Data}
+        \begin{itemize}
+        \item visualize graphs
+        \item transform to tech stack
+        \end{itemize}
+      \end{exampleblock}
+      \begin{exampleblock}{Tech Stack Options}
+        \begin{itemize}
+        \item Flax/JAX with Jraph
+        \item PyTorch with Torch-Geometric
+        \item Tensorflow with GNN
+        \end{itemize}
+      \end{exampleblock}
+      \begin{exampleblock}{Tools}
+        \begin{itemize}
+        \item visualization: \href{GraphViz - Dot}{https://graphviz.org/}
+        \item python: \href{NetorkX}{https://networkx.org/}
+        \end{itemize}
+      \end{exampleblock}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+      \item New to GNN?
+      \item New to Molecular AI?
+      \item Dmol introduction!
+      \end{itemize}
+      \centering
+      {\small\url{https://dmol.pub/dl/gnn.html}}
+      \begin{figure}
+        \includegraphics[width=0.75\textwidth]{dmol}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\renewcommand\citationtext{}
+\begin{frame}
+  \frametitle{How we Evaluate You!}
   \begin{columns}
     \begin{column}{0.5\textwidth}
       \begin{itemize}
       \item prepare a final presentation
       \item convince us your solution is best
       \item include model details and results
-      \item XX minutes to present
-      \item YY minutes for our questions
+      \item 7 minutes to present
+      \item 2 minutes for our questions
       \end{itemize}
     \end{column}
     \begin{column}{0.5\textwidth}
       \begin{itemize}
-      \item morning last day: we give you additional data
+      \item Wednesday \@ 5PM: we give you additional data
       \item DO NOT TRAIN with this data
+      \item Send you result back as soon as you can!
+      \item practice preparing these results
       \item \texttt{molecular/final\_evaluation.py}
       \item report output in your presentation
       \end{itemize}
@@ -259,10 +303,10 @@
 \subsection*{Questions?}
 
 \begin{frame}
-  % \frametitle{Conclusion \& Outlook}
+  \frametitle{Happy Hacking!}
 
   \centering
-  \Huge{Happy Hacking!}
+  \Huge{Questions?}
 \end{frame}
 \beginbackup
 
